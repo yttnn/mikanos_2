@@ -1,0 +1,17 @@
+{
+    "configurations": [
+        {
+            "name": "mikanos_2",
+            "includePath": [
+                "${HOME}/edk2/MdePkg/Include/**",
+                "${HOME}/osbook/devenv/x86_64-elf/include/"
+            ],
+            "defines": [],
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "compilerPath": "/usr/bin/clang",
+            "intelliSenseMode": "linux-clang-x64"
+        }
+    ],
+    "version": 4
+}
