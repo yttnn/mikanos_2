@@ -21,6 +21,7 @@ EFI_STATUS GetMemoryMap(struct MemoryMap* map) {
     return EFI_BUFFER_TOO_SMALL;
   }
 
+  map->map_size = map->buffer_size;
   return gBS->GetMemoryMap(
     &map->map_size,
     (EFI_MEMORY_DESCRIPTOR*)map->buffer,
@@ -88,7 +89,7 @@ EFI_STATUS OpenRootDir(EFI_HANDLE image_handle, EFI_FILE_PROTOCOL** root) {
 
   gBS->OpenProtocol(
     image_handle,
-    &gEfiBlockIoProtocolGuid,
+    &gEfiLoadedImageProtocolGuid,
     (VOID**)&loaded_image,
     image_handle,
     NULL,
@@ -124,10 +125,7 @@ EFI_STATUS EFIAPI UefiMain(
   Print(L"GetMemoryMap done\n");
 
   EFI_FILE_PROTOCOL* root_dir;
-  EFI_STATUS status = OpenRootDir(image_handle, &root_dir);
-  if (EFI_ERROR(status)) {
-    Print(L"OpenRootDir fail\n");
-  }
+  OpenRootDir(image_handle, &root_dir);
   Print(L"OpenRootDir done\n");
 
   EFI_FILE_PROTOCOL* memmap_file;
